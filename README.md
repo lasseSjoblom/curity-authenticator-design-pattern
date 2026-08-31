@@ -1,0 +1,1 @@
+# curity-authenticator-design-pattern
