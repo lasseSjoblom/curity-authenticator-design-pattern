@@ -1,4 +1,4 @@
-package controller;
+package controller.Model;
 
 public class IndexHandlerRequest {
     public final String action = null;

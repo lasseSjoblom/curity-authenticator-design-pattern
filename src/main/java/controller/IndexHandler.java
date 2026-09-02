@@ -1,9 +1,10 @@
 package controller;
 
+import controller.Model.IndexHandlerRequest;
 import domain.Journeys.UkJourney;
+import domain.model.Result.Result;
 import domain.ports.ScaPort;
 import domain.ports.UserPort;
-import domain.useCases.SmsOTP.SendSmsOTP;
 import infrastructure.adapters.ScaClient;
 import infrastructure.adapters.UserRepository;
 import se.curity.identityserver.sdk.authentication.AuthenticationResult;
@@ -35,12 +36,8 @@ public class IndexHandler implements AuthenticatorRequestHandler<IndexHandlerReq
         };
 
         var step = userJourney.HandleAction(request.action);
-        step.ifPresent(x ->
-        {
-            var next = x.Execute();
-            FlowRouter.RenderView(next.reqOp);
-        });
-
+        Result result = step.Execute();
+        FlowRouter.RenderView(result.reqOp, response);
         return Optional.empty();
     }
     @Override

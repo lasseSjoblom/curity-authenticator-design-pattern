@@ -4,8 +4,6 @@ import domain.ports.UserPort;
 import domain.useCases.SmsOTP.SendSmsOTP;
 import domain.useCases.UseCase;
 
-import java.util.Optional;
-
 public class UkJourney implements UserJourney {
     private final ScaPort scaPort;
     private final UserPort userPort;
@@ -17,10 +15,10 @@ public class UkJourney implements UserJourney {
         this.userId = userId;
     }
 
-    public Optional<UseCase> HandleAction(String action) {
+    public UseCase HandleAction(String action) {
         return switch (action) {
-            case "STEP_UP" ->  Optional.of(new SendSmsOTP(userPort,scaPort, userId));
-            case null, default -> Optional.empty();
+            case "STEP_UP" ->  new SendSmsOTP(userPort,scaPort, userId);
+            case null, default -> throw new UnsupportedOperationException();
         };
     }
 }

@@ -20,7 +20,6 @@ public class SendSmsOTP implements UseCase {
     @Override
     public Result Execute() {
         var user = userPort.GetUser(id);
-        var result = scaPort.SmsOTP(user);
-        return result;
+        return scaPort.SmsOTP(user);
     }
 }
